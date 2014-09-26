@@ -12,3 +12,5 @@
 */
 
 Route::get('/validate/{id}', 'ValidateController@validate');
+
+Route::post('/validate/{id}', 'ValidateController@validate');

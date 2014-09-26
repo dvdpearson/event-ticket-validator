@@ -17,13 +17,20 @@
         <?php if (isset($ticket['isitin']) && !$ticket['isitin']) { ?>
             <p>VALID</p>
             <p>Sexe: <?php echo $ticket['sexe']; ?></p>
-            <input type="button" name="validate" value="MARK AS ENTERED" />
+            <p><?php echo $ticket['name']; ?></p>
+            <p><?php echo $ticket['address']; ?></p>
+            <form action="/validate/<?php echo $ticket['id'] ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo $ticket['id']; ?>" />
+                <input type="submit" name="validate" value="MARK AS ENTERED" />
+            </form>
+        <?php } else if(!isset($ticket['id'])) { ?>
+            <p>NOT VALID</p>
         <?php } else { ?>
-            <p>INVALID</p>
+            <p>ENTERED</p>
             <p>Enter time: <?php echo $ticket['scantime']; ?></p>
             <p>Sexe: <?php echo $ticket['sexe']; ?></p>
-            <p>Name: <?php echo $ticket['name']; ?></p>
-            <p>Address: <?php echo $ticket['address']; ?></p>
+            <p><?php echo $ticket['name']; ?></p>
+            <p><?php echo $ticket['address']; ?></p>
         <?php } ?>
     </div>
 </div> <!--! end of #container -->

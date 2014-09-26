@@ -9,4 +9,5 @@ class Ticket extends Eloquent {
 	 */
 	protected $table = 'wp_tickets';
 
+    public $timestamps = false;
 }
