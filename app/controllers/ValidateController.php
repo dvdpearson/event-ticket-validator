@@ -1,7 +1,17 @@
 <?php
 
-class ValidateController extends Controller {
+namespace AppValidation;
 
+/**
+ * Class ValidateController
+ */
+class ValidateController extends Controller
+{
+
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function validate($id)
     {
         if (isset($_POST['validate'])) {
@@ -26,5 +36,4 @@ class ValidateController extends Controller {
         return View::make('validate', $data);
 
     }
-
 }
