@@ -9,26 +9,28 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
 
 <div id="container">
     <div id="main" role="main">
         <?php if (isset($ticket['isitin']) && !$ticket['isitin']) { ?>
-            <p>VALID</p>
-            <p>Sexe: <?php echo $ticket['sexe']; ?></p>
+            <p class="valid">VALID</p>
+            <p class="sex <?php echo $ticket['sexe']; ?>"><?php echo ($ticket['sexe']=="F"?"LADY":"GENTLEMAN"); ?></p>
             <p><?php echo $ticket['name']; ?></p>
             <p><?php echo $ticket['address']; ?></p>
             <form action="/validate/<?php echo $ticket['id'] ?>" method="post">
                 <input type="hidden" name="id" value="<?php echo $ticket['id']; ?>" />
-                <input type="submit" name="validate" value="MARK AS ENTERED" />
+                <input class="markbutton" type="submit" name="validate" value="MARK AS ENTERED" />
             </form>
         <?php } else if(!isset($ticket['id'])) { ?>
-            <p>NOT VALID</p>
+            <p class="invalid">INVALID</p>
         <?php } else { ?>
-            <p>ENTERED</p>
+            <p class="invalid">ENTERED</p>
             <p>Enter time: <?php echo $ticket['scantime']; ?></p>
-            <p>Sexe: <?php echo $ticket['sexe']; ?></p>
+            <p class="sex <?php echo $ticket['sexe']; ?>"><?php echo ($ticket['sexe']=="F"?"LADY":"GENTLEMAN"); ?></p>
             <p><?php echo $ticket['name']; ?></p>
             <p><?php echo $ticket['address']; ?></p>
         <?php } ?>
