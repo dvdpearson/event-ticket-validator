@@ -16,17 +16,38 @@
 
 <div id="container">
     <div id="main" role="main">
-        <form action="/validate/1" method="post">
-            Ticket ID:<input type="text" name="ticketid" class="ticketid" value="<?php echo $ticket['id']; ?>" />
-            <input class="searchid" type="submit" name="search" value="SEARCH" />
-        </form>
-        <?php if (isset($ticket['isitin']) && !$ticket['isitin'] && $ticket['transaction_id'] !== "") { ?>
-            <p class="valid">VALID</p>
-            <p class="sex <?php echo $ticket['sexe']; ?>"><?php echo ($ticket['sexe']=="F"?"LADY":"GENTLEMAN"); ?></p>
+        <div>
+        <?php if (isset($ticket['isitin']) && !$ticket['isitin'] && $ticket['sexe'] !== "") { ?>
+            <p class="valid">#<?php echo $ticket['id']; ?> VALID</p>
+            <p class="sex <?php echo $ticket['sexe']; ?>"><?php
+                switch ($ticket['sexe']) {
+                    case 'F':
+                        echo "LADY";
+                        break;
+                    case 'M':
+                        echo "GENTLEMAN";
+                        break;
+                    case 'U':
+                        echo "UNISEX";
+                        break;
+                }
+                ?></p>
             <?php if (isset($linkedticket['id'])) { ?>
                 <p>
                     <span style="font-size: 26px;">Linked ticket</span><br />
-                    #<?php echo $linkedticket['id']; ?>, <?php echo ($ticket['sexe']=="F"?"LADY":"GENTLEMAN"); ?>
+                    #<?php echo $linkedticket['id']; ?>, <?php
+                    switch ($linkedticket['sexe']) {
+                        case 'F':
+                            echo "LADY";
+                            break;
+                        case 'M':
+                            echo "GENTLEMAN";
+                            break;
+                        case 'U':
+                            echo "UNISEX";
+                            break;
+                    }
+                    ?>
                 </p>
             <?php } ?>
             <p><?php echo $ticket['name']; ?></p>
@@ -35,12 +56,24 @@
                 <input type="hidden" name="id" value="<?php echo $ticket['id']; ?>" />
                 <input class="markbutton" type="submit" name="validate" value="MARK AS ENTERED" />
             </form>
-        <?php } else if(!isset($ticket['id']) || empty($ticket['transaction_id'])) { ?>
-            <p class="invalid">INVALID</p>
+        <?php } else if(!isset($ticket['id']) || empty($ticket['sexe'])) { ?>
+            <p class="invalid">#<?php echo $ticket['id']; ?> INVALID</p>
         <?php } else { ?>
-            <p class="invalid">ENTERED</p>
+            <p class="invalid">#<?php echo $ticket['id']; ?> ENTERED</p>
             <p>Enter time: <?php echo $ticket['scantime']; ?></p>
-            <p class="sex <?php echo $ticket['sexe']; ?>"><?php echo ($ticket['sexe']=="F"?"LADY":"GENTLEMAN"); ?></p>
+            <p class="sex <?php echo $ticket['sexe']; ?>"><?php
+                switch ($ticket['sexe']) {
+                    case 'F':
+                        echo "LADY";
+                        break;
+                    case 'M':
+                        echo "GENTLEMAN";
+                        break;
+                    case 'U':
+                        echo "UNISEX";
+                        break;
+                }
+                ?></p>
             <p><?php echo $ticket['name']; ?></p>
             <p><?php echo $ticket['address']; ?></p>
             <form action="/validate/<?php echo $ticket['id'] ?>" method="post">
@@ -48,6 +81,14 @@
                 <input class="markbutton" type="submit" name="unvalidate" value="RELEASE TICKET" />
             </form>
         <?php } ?>
+        </div>
+        <br /><br /><br /><br /><br />
+        <div>
+            <form action="/validate/1" method="post">
+                Ticket ID:<input type="text" name="ticketid" class="ticketid" value="<?php echo $ticket['id']; ?>" />
+                <input class="searchid" type="submit" name="search" value="SEARCH" />
+            </form>
+        </div>
     </div>
 </div> <!--! end of #container -->
 
