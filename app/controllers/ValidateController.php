@@ -50,7 +50,10 @@ class ValidateController extends \Controller
 
         $data = [
             'ticket' => $ticket,
-            'linkedticket' => (isset($linkedticket->transaction_id) && $linkedticket->transaction_id!==""?$linkedticket:null)
+            'linkedticket' => (
+                isset($linkedticket) && isset($linkedticket->transaction_id) &&
+                $linkedticket->transaction_id!=="" ? $linkedticket : null
+            )
         ];
 
         return View::make('validate', $data);
