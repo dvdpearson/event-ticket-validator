@@ -35,8 +35,6 @@ class ValidateController extends \Controller
             die();
         }
 
-
-
         $ticket = Ticket::find($id);
 
         if (isset($ticket['transaction_id'])) {
